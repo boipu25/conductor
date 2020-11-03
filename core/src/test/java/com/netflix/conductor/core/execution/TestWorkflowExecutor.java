@@ -38,6 +38,7 @@ import com.netflix.conductor.core.execution.mapper.SubWorkflowTaskMapper;
 import com.netflix.conductor.core.execution.mapper.TaskMapper;
 import com.netflix.conductor.core.execution.mapper.UserDefinedTaskMapper;
 import com.netflix.conductor.core.execution.mapper.WaitTaskMapper;
+import com.netflix.conductor.core.execution.tasks.SubWorkflow;
 import com.netflix.conductor.core.execution.tasks.Terminate;
 import com.netflix.conductor.core.execution.tasks.Wait;
 import com.netflix.conductor.core.execution.tasks.WorkflowSystemTask;
@@ -131,7 +132,7 @@ public class TestWorkflowExecutor {
         DeciderService deciderService = new DeciderService(parametersUtils, metadataDAO, externalPayloadStorageUtils, taskMappers, config);
         MetadataMapperService metadataMapperService = new MetadataMapperService(metadataDAO);
         workflowExecutor = new WorkflowExecutor(deciderService, metadataDAO, queueDAO, metadataMapperService,
-            workflowStatusListener, executionDAOFacade, config, executionLockService, parametersUtils);
+            workflowStatusListener, executionDAOFacade, config, executionLockService, parametersUtils, new SubWorkflow());
     }
 
     @Test
