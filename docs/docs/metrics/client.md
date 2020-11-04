@@ -19,3 +19,28 @@ When using the Java client, the following metrics are published:
 Metrics on client side supplements the one collected from server in identifying the network as well as client side issues.
 
 [1]: https://github.com/Netflix/spectator
+
+For client side configuration you need to register your metrics registry to the global COMPOSITE registry.
+
+Sample code for prometheus micrometer registry to register these metrices :-
+
+1. Add these to your POM file :-
+        <dependency>
+            <groupId>com.netflix.spectator</groupId>
+            <artifactId>spectator-reg-metrics3</artifactId>
+            <version>${spectator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.spectator</groupId>
+            <artifactId>spectator-reg-micrometer</artifactId>
+            <version>${spectator.version}</version>
+        </dependency>
+   Note - Assuming prometheus micrometer POM is already present.
+   
+   2. Add this to a configuration class :-
+   
+        MicrometerRegistry micrometerRegistry = new MicrometerRegistry(meterRegistry);
+        Spectator.globalRegistry().add(micrometerRegistry);
+        
+        
+        
